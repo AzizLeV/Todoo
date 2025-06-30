@@ -50,7 +50,7 @@ router.post('/login', async (req, res) => {
             if (checkPassword) {
                 req.session.username = req.body.username;
                 req.session.isAuth = true;
-                console.log(`User ${req.body.username} has successfully logged in.`)
+                console.log(`\x1b[1m${req.body.username}\x1b[0m has successfully logged in.`);
                 res.redirect('/')
             } else {
                 req.session.loginAlerts = 'Incorrect password!';
