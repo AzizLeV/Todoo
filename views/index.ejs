@@ -59,12 +59,10 @@
         checkBoxes.forEach((checkBox) => {
             let taskId = checkBox.dataset.doc
             if (document.getElementById(taskId).dataset.status === 'true') {
-                // console.log(document.getElementById(taskId).textContent, document.getElementById(taskId).dataset.status)
                 checkBox.checked = true;
                 document.getElementById(taskId).style.textDecoration = 'line-through #939393 0.1rem';
                 document.getElementById(taskId).style.color = '#939393';
             } else {
-                // console.log(document.getElementById(taskId).textContent, document.getElementById(taskId).dataset.status)
                 checkBox.checked = false;
                 remainingTasks += 1;
             }
@@ -91,7 +89,6 @@
                         .then((result) => console.log('Update request sent! (true)'))
                         .catch((err) => console.log(err));
                 } else {
-                    console.log('Unchecked: ', id);
                     document.getElementById(id).style.textDecoration = 'none';
                     document.getElementById(id).style.color = '#4E4E4E';
                     remainingTasks += 1;
