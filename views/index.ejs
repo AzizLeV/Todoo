@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todoo</title>
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+    <div class="user-box">
+        <p class="username">User: <%= loginUsername %></p>
+        <a class="logout" href="/logout"><img src="logout.svg" alt="logout" draggable="false"> Log Out</a>
+    </div>
+    <div class="container">
+        <h1 class="title">Your To Do</h1>
+        <form class="form" action="/create" method="POST">
+            <input type="text" class="input-area" placeholder="Add new task" name="task" autocomplete="off" required>
+            <button class="add-button">+</button>
+        </form>
+
+        <% for (let i=0 ; i < taskList.length ; i++) {%>
+            <form class="one-task">
+                <input class="check" type="checkbox" data-doc="<%= taskList[i]._id %>" >   
+                <div class="taskover"></div>
+                <p data-status="<%= taskList[i].finished %>" id="<%= taskList[i]._id %>" class="task"><%= taskList[i].body %></p>
+                <button type='button' class="delete" data-doc="<%= taskList[i]._id %>">
+                    <img class="delete-img" src="/delete-icon.svg" alt="delete" draggable="false">
+                </button>
+            </form>
+        <%}
+        %>
+        <p id="remaining-todoos"></p>
+        <p class="quote">"The key to progress is simply showing up and doing the work."</p>
+    </div>
+    
+    <script>
+        const deleteBtns = document.querySelectorAll('.delete');
+        const checkBoxes = document.querySelectorAll('.check');
+
+        deleteBtns.forEach((deleteBtn) => {
+            deleteBtn.addEventListener('click', (e) => {
+            e.preventDefault;
+            
+            const endpoint = `/delete/${deleteBtn.dataset.doc}`
+
+            fetch(endpoint, {
+                method: 'DELETE',   
+            })
+                .then((response) => response.json())
+                .then((data) => window.location.href = data.redirect)
+                .catch((err) => {
+                    console.log(err);
+                });
+            })
+        })
+
+
+        let remainingTasks = 0;
+        checkBoxes.forEach((checkBox) => {
+            let taskId = checkBox.dataset.doc
+            if (document.getElementById(taskId).dataset.status === 'true') {
+                // console.log(document.getElementById(taskId).textContent, document.getElementById(taskId).dataset.status)
+                checkBox.checked = true;
+                document.getElementById(taskId).style.textDecoration = 'line-through #939393 0.1rem';
+                document.getElementById(taskId).style.color = '#939393';
+            } else {
+                // console.log(document.getElementById(taskId).textContent, document.getElementById(taskId).dataset.status)
+                checkBox.checked = false;
+                remainingTasks += 1;
+            }
+            document.getElementById('remaining-todoos').innerText = `Your remaining todoos: ${remainingTasks}`
+            checkBox.addEventListener('change', () => {
+                const id = checkBox.dataset.doc
+                console.log(id);
+                const endpoint = `/update/${id}`
+                if(checkBox.checked) {
+                    console.log('Checked: ', id);
+                    document.getElementById(id).style.textDecoration = 'line-through #939393 0.1rem';
+                    document.getElementById(id).style.color = '#939393';
+                    remainingTasks -= 1;
+                    document.getElementById('remaining-todoos').innerText = `Your remaining todoos: ${remainingTasks}`
+                    fetch(endpoint, {
+                        method: 'PUT',
+                        headers: {
+                            'Content-Type' : 'application/json',
+                        },
+                        body: JSON.stringify({
+                            finished: true
+                        })
+                    })
+                        .then((result) => console.log('Update request sent! (true)'))
+                        .catch((err) => console.log(err));
+                } else {
+                    console.log('Unchecked: ', id);
+                    document.getElementById(id).style.textDecoration = 'none';
+                    document.getElementById(id).style.color = '#4E4E4E';
+                    remainingTasks += 1;
+                    document.getElementById('remaining-todoos').innerText = `Your remaining todoos: ${remainingTasks}`
+                    fetch(endpoint, {
+                        method: 'PUT',
+                        headers: {
+                            'Content-Type' : 'application/json',
+                        },
+                        body: JSON.stringify({
+                            finished: false
+                        })
+                    })
+                        .then((result) => console.log('Update request sent! (false)'))
+                        .catch((err) => console.log(err));
+                }
+            })
+        })
+
+        
+
+    </script>
+</body>
+</html>

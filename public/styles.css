@@ -1,0 +1,180 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap');
+html {
+    font-size: 16px;
+}
+body{
+    max-width: 1200px;
+    min-height: 100vh;
+    margin: 0px auto 0px auto;
+    padding: 0 20px;
+    font-family: "Noto Sans", sans-serif;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+p, h1, h2, h3, a, ul{
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
+    color: #4E4E4E;
+}
+
+.user-box {
+    position: absolute;
+    top: 1rem;
+    left: auto;
+}
+.username {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+}
+.logout {
+    font-size: 1rem;
+    font-weight: 500;
+    display: flex;
+    flex-direction: row ;
+    align-items: center;
+    column-gap: 5px;
+    justify-content: start;
+    transition: 300ms ease-in-out;
+    /* background-color: aqua; */
+}
+.logout:hover {
+    text-decoration: underline;
+    color: #ef233c;
+}
+.logout img {
+    height: 1rem;
+}
+
+.container {
+    /* background-color: antiquewhite; */
+    padding-top: 10vh;
+    padding-bottom: 5vh;
+    min-height: 70vh;
+    width: 40%;
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    text-align: center;
+}
+.form {
+    /* background-color: rgb(70, 152, 152); */
+    min-height: 3rem;
+    vertical-align:baseline;
+    margin-bottom: 1.2rem;
+}
+.title {
+    font-size: 2.2rem;
+    margin-bottom: 1.5rem;
+}
+.input-area {
+    min-width: 80%;
+    min-height: 2.5rem;
+    border: solid #B4B4B4;
+    color: #B4B4B4;
+    border-width: 0 0 0.1rem 0;
+    padding-left: 1%;
+    margin-right: 0.5rem;
+    background: transparent;
+    font-size: 1rem;
+}
+.input-area:focus {
+    outline: none;
+    color: #4E4E4E;
+}
+.add-button {
+    min-height: 2.5rem;
+    min-width: 2.5rem;
+    border-radius: 0.5rem;
+    border: none;
+    background-color: #4E4E4E;
+    font-size: 180%;
+    font-weight: lighter;
+    color: white;
+    vertical-align: middle;
+    cursor: pointer;
+}
+
+.one-task {
+    /* background-color: rgb(167, 167, 255); */
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    padding: 1rem 1rem;
+    overflow-wrap: break-word;
+    overflow: hidden;
+    hyphens: auto;
+    align-items: center;
+    position: relative;
+    border: 0.15rem solid #B4B4B4;
+    border-radius: 1.5rem;
+    margin-bottom: 1rem;
+}
+input[type="checkbox"] {
+    min-height: 1.5rem;
+    min-width: 1.5rem;
+    cursor: pointer;
+    appearance: none;
+    outline: 1.5px solid #B4B4B4;
+    border-radius: 0.2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: 150ms ease-in-out;
+}
+input[type="checkbox"]:hover {
+    background-color: #B4B4B4;
+}
+input[type="checkbox"]:checked {
+    background-color: #535353;
+    background-image: url('checked.png');
+    background-size: contain;
+    background-position: center;
+}
+.task {
+    left: 0;
+    padding: 0 0.9rem;
+    position: relative;
+    flex: 1;
+}
+.delete {
+    height: 1.5rem;
+    width: 1.5rem;
+    font-weight: 900;
+    background: transparent;
+    right: 0;
+    border: none;
+    vertical-align: middle;
+    text-align: center;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    padding: 0 0 0 0;
+    transform: scale(1);
+    transition: 100ms ease-in;
+}
+.delete:hover {
+    transform: scale(1.2);
+}
+.delete:active {
+    transform: scale(0.8);
+}
+.delete-img {
+    min-height: auto;
+}
+
+#remaining-todoos {
+    left: 0px;
+    font-size: 1rem;
+    font-weight: 600;
+    font-style: italic;
+}
+
+.quote {
+    margin-top: 1rem;
+    color: #a1a1a1;
+    font-style: italic;
+}
